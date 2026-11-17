@@ -1,0 +1,9 @@
+javascript:(function(){var B="https://cdn.jsdelivr.net/gh/antoleod/smart@main/smart-assignment.bundle.js",V="2.0.0",K='__SMART_ASSIGNMENT_BOOT__',D='__SMART_ASSIGNMENT_2__',S='smart-assignment-bundle';
+var G=window[D];
+if(G&&G.instance&&(G.version||'')===V){G.instance.noteDuplicateStart();return;}
+if(G&&G.instance){console.info('[SmartAssignment] loading bundle '+V+' over running '+(G.version||'unknown'));}
+var prev=document.getElementById(S);if(prev&&prev.parentNode){prev.parentNode.removeChild(prev);}
+window[K]={autoStart:false,source:'bookmarklet',version:V,loadedAt:Date.now()};
+function boot(){try{if(window.SmartAssignment&&typeof window.SmartAssignment.start==='function'){window.SmartAssignment.start();}else{console.error('[SmartAssignment] bundle loaded without API');}}catch(e){console.error('[SmartAssignment] start failed',e);}}
+function inject(){var s=document.createElement('script');s.id=S;s.src=B+(B.indexOf('?')<0?'?':'&')+'v='+Date.now();s.async=true;s.onload=boot;s.onerror=function(){console.error('[SmartAssignment] could not load bundle from '+B);};document.head.appendChild(s);}
+inject();})();
