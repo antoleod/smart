@@ -1,13 +1,13 @@
-# SmartAssignment 2.0.1 — public distribution
+# SmartAssignment 2.0.2 — public distribution
 
 Injected, browser-based dispatch assistant for ServiceNow. This repository contains the
 **built runtime only**: nothing here is source code, and nothing is required from you
 except a browser tab on your ServiceNow instance.
 
-- **Release:** `v2.0.1`
-- **Bundle:** [smart-assignment.bundle.js](https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.1/smart-assignment.bundle.js)
-- **Source:** [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment) (private, 3611a5a700cedcf733b8cdaea31739b22d796058)
-- **Built:** 2026-11-18T11:09:39.186Z
+- **Release:** `v2.0.2`
+- **Bundle:** [smart-assignment.bundle.js](https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.2/smart-assignment.bundle.js)
+- **Source:** [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment) (private, 462e313778eb40d149d56c58556e277e2eb876a9)
+- **Built:** 2026-11-18T11:21:16.575Z
 - **License:** MIT
 
 ## What it does
@@ -49,10 +49,10 @@ Verify the download before trusting it:
 
 ```bash
 sha256sum smart-assignment.bundle.js
-# 42ceadd1a41fa98179b5f9cb154353e452bc0360f9a73de85fe816f3ee614f51
+# 74dba2006646984724fbaa66b962b222c4aa91b7ef5fe98ee17c4503c5e85ca0
 ```
 
-The URL is pinned to the immutable release tag `v2.0.1`, so a later release cannot change
+The URL is pinned to the immutable release tag `v2.0.2`, so a later release cannot change
 what your bookmarklet loads.
 
 ## Safety
