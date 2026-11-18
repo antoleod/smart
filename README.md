@@ -1,66 +1,70 @@
-# SmartAssignment 2.0.2
+# SmartAssignment 2.0.3 — public distribution
 
-**Public distribution — compiled files only.** The private source repository is not published here.
+Injected, browser-based dispatch assistant for ServiceNow. This repository contains the
+**built runtime only**: nothing here is source code, and nothing is required from you
+except a browser tab on your ServiceNow instance.
 
-## Install in Firefox, Chrome or Edge
+- **Release:** `v2.0.3`
+- **Bundle:** [smart-assignment.bundle.js](https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.3/smart-assignment.bundle.js)
+- **Source:** [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment) (private, 21a99325e0937a0451e03dc137d35c52cd46ecbc)
+- **Built:** 2026-11-18T11:36:01.353Z
+- **License:** MIT
 
-**Use the bookmarklet as the bookmark's URL, not as a web address or a Console command.**
+## What it does
 
-1. Sign in to ServiceNow and leave that tab open.
-2. Open [bookmarklet.txt](./bookmarklet.txt) and select **Raw** (or open the [raw file](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt)).
-3. Copy **the complete single line**, starting with `javascript:(function()` and ending with `})();`.
-4. In **Firefox**: right-click the bookmarks toolbar → **Add Bookmark**. Give it the name `SmartAssignment` and paste the code into **URL/Location**.
-5. In **Chrome / Edge**: open the bookmarks manager, create a bookmark, paste the code into its **URL** field. If editing an existing bookmark, replace its URL completely.
-6. Return to the signed-in **ServiceNow** tab and click the bookmark **once**. Click it again to reopen the panel if it is minimized or hidden.
+SmartAssignment monitors an assignment-group queue, waits a per-installation staggered delay
+(25 / 26 / 27 minutes …), selects a technician, and performs **one** assignment write:
+`Assigned to` + `State = On Hold` + `Substate = Process Time`. It never assumes the local
+form change succeeded: the record is reloaded and the persisted values are compared before
+an assignment is reported as done.
 
-**Important:** Firefox/Chrome/Edge can strip `javascript:` when pasting into the browser **address bar**. Do not use the address bar; save the complete line in the **bookmark URL** field. The code is not a normal URL to visit.
+It runs entirely inside your authenticated browser tab. There is no backend, no REST call,
+no stored credential and no external service.
 
-### Quick links
+## Files
 
-- **Copy bookmarklet:** [bookmarklet.txt](./bookmarklet.txt) · [Raw one-line bookmarklet](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt)
-- **Runtime bundle:** [smart-assignment.bundle.js](./smart-assignment.bundle.js)
-- **Optional userscript:** [smart-assignment.user.js](./smart-assignment.user.js)
-- **Build metadata:** [build-meta.json](./build-meta.json)
-
-## Current release
-
-| Field | Value |
+| File | Purpose |
 |---|---|
-| Version | **2.0.2** |
-| Immutable tag | `v2.0.2` |
-| Bundle CDN | `https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.2/smart-assignment.bundle.js` |
-| Private build commit | `462e313778eb40d149d56c58556e277e2eb876a9` |
-| Built | 2026-11-18 |
-| License | MIT |
+| `smart-assignment.bundle.js` | Single-file IIFE build; exposes `window.SmartAssignment` |
+| `bookmarklet.txt` | Ready-to-paste `javascript:` bookmarklet pinned to this release |
+| `smart-assignment.user.js` | Optional userscript for the same release (not required) |
+| `build-meta.json` | Version, release tag, source commit, bundle URL, size, build time |
 
-The bookmarklet is pinned to `v2.0.2` for stability. A future release will require updating its saved bookmark URL. Updating the README or bookmarklet file does **not** change the immutable `v2.0.2` bundle.
+## Install
 
-## Troubleshooting
+1. Open your ServiceNow instance and sign in.
+2. Copy the contents of `bookmarklet.txt`.
+3. Create a browser bookmark whose URL is that `javascript:` code, or paste it into the
+   address bar once (some browsers strip `javascript:` when pasting — type it manually
+   if needed).
+4. Run it on the instance. The panel opens in the corner; configure the queue group,
+   roster, delay and strategy there.
 
-**Nothing happens:** make sure you ran the bookmark on the authenticated ServiceNow tab, not on GitHub. Confirm the saved URL starts with `javascript:` and is a **single line**; copy it again from the raw link if necessary.
+The bookmarklet refuses a duplicate start of the same version, replaces an instance left by
+a different version, and keeps settings and tracked deadlines in the browser profile.
 
-**The panel is not visible:** click the bookmark again. Version 2.0.2 attempts to reopen an existing panel and recover a stale instance.
+## Integrity
 
-**A load error appears:** open **F12 → Console** and **Network**, check if `smart-assignment.bundle.js` was blocked by the browser or your organization's Content Security Policy (CSP). The loader displays a diagnostic after 15 seconds if loading times out. A successful CDN fetch does not guarantee ServiceNow permits script execution.
+Verify the download before trusting it:
 
-**Old version appears:** reload the ServiceNow tab and replace the bookmark URL with the current raw bookmarklet. Do not mix bookmarklet versions.
-
-**Searching for a technician:** enter the username in **Roster**. The lookup uses the authenticated classic ServiceNow user list; it does not use the REST Table API, which may return HTTP 401 in your environment.
-
-## Security and limitations
-
-- Runs in the user's authenticated ServiceNow browser session; no separate backend or credentials.
-- Default **live writes OFF**. Test in simulation mode before enabling real ticket assignments.
-- The public repository contains only compiled distribution assets and documentation.
-- Version 2.0.2 passed automated tests and build validation, but actual behavior on a corporate ServiceNow instance still requires user validation.
-- Browser corporate policy, SSO rules or CSP may prevent externally hosted script injection.
-
-## Build integrity
-
-Bundle SHA-256 for the release artifact:
-
-```text
-74dba2006646984724fbaa66b962b222c4aa91b7ef5fe98ee17c4503c5e85ca0
+```bash
+sha256sum smart-assignment.bundle.js
+# 0d2bbb77e45e706d01b0abd16b8201ae9bb519a63f183e61ef9107b6218a2dee
 ```
 
-Source repository (private): [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment).
+The URL is pinned to the immutable release tag `v2.0.3`, so a later release cannot change
+what your bookmarklet loads.
+
+## Safety
+
+- Live writes stay **off** until an operator enables them after a supervised test.
+- Choice values (`On Hold`, `Process Time`) are resolved from the instance, never hardcoded.
+- A ticket already assigned, moved to another group, closed or otherwise ineligible is
+  skipped, not overwritten.
+- Multi-browser races are resolved by re-reading before every write; the loser sees an
+  "already assigned" result. There is no cross-browser lock.
+
+## Not included here
+
+Source code, tests, build tooling, configuration, credentials and corporate data are **not**
+published to this repository. Do not open issues with instance names or ticket data.
