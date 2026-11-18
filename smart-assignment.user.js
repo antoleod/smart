@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SmartAssignment 2.0
 // @namespace    https://github.com/antoleod/SmartAssignment
-// @version      2.0.0
+// @version      2.0.2
 // @description  Intelligent ServiceNow ticket dispatch (queue monitoring, staggered delay, verified assignment).
 // @match        https://*.service-now.com/*
 // @match        https://*.servicenow.com/*
@@ -16,7 +16,7 @@
 (function () {
   "use strict";
   var BUNDLE = "https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.2/smart-assignment.bundle.js";
-  var VERSION = "2.0.0";
+  var VERSION = "2.0.2";
   var running = window.__SMART_ASSIGNMENT_2__;
   // Same version already running: nothing to do. A different version means this
   // page still executes stale code, so the old bundle is replaced below.
