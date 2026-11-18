@@ -1,13 +1,13 @@
-# SmartAssignment 2.0.4 — public distribution
+# SmartAssignment 2.0.5 — public distribution
 
 Injected, browser-based dispatch assistant for ServiceNow. This repository contains the
 **built runtime only**: nothing here is source code, and nothing is required from you
 except a browser tab on your ServiceNow instance.
 
-- **Release:** `v2.0.4`
-- **Bundle:** [smart-assignment.bundle.js](https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.4/smart-assignment.bundle.js)
-- **Source:** [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment) (private, bccf45c379af137eb7acd4d4797c283759ce97d2)
-- **Built:** 2026-11-18T12:15:04.511Z
+- **Release:** `v2.0.5`
+- **Bundle:** [smart-assignment.bundle.js](https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.5/smart-assignment.bundle.js)
+- **Source:** [antoleod/SmartAssignment](https://github.com/antoleod/SmartAssignment) (private, 6ba80fa6856bbcfbec9c79863b192fa8a92e1678)
+- **Built:** 2026-11-18T12:29:19.170Z
 - **License:** MIT
 
 ## What it does
@@ -30,18 +30,18 @@ no stored credential and no external service.
 | `smart-assignment.user.js` | Optional userscript for the same release (not required) |
 | `build-meta.json` | Version, release tag, source commit, bundle URL, size, build time |
 
-## Install SmartAssignment 2.0.4
+## Install
 
-1. Open [bookmarklet.txt](./bookmarklet.txt), click **Raw**, and copy the entire single line. [Direct raw bookmarklet](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt)
-2. In Firefox: right-click the SmartAssignment bookmark → **Edit Bookmark**, then replace its **Location** with that line. In Chrome/Edge: edit the bookmark **URL**.
-3. Reload your signed-in ServiceNow tab, then click the bookmark. The code must contain `@v2.0.4/`.
-4. In **Roster**, search for the exact ServiceNow username. The 2.0.4 parser recognizes exact username cells even when all 19 table cells lack `data-field`.
+1. Open your ServiceNow instance and sign in.
+2. Copy the contents of `bookmarklet.txt`.
+3. Create a browser bookmark whose URL is that `javascript:` code, or paste it into the
+   address bar once (some browsers strip `javascript:` when pasting — type it manually
+   if needed).
+4. Run it on the instance. The panel opens in the corner; configure the queue group,
+   roster, delay and strategy there.
 
-**Important:** This release fixes username extraction from classic list rows. Its Active-status check remains fail-closed: if ServiceNow does not expose a verifiable Active field, the lookup will report that limitation rather than silently add a potentially inactive user.
-
-If lookup still fails, open F12 → Console and capture the SmartAssignment error text. The app does not require copying private source code or accessing GitHub from ServiceNow.
-
-The versioned CDN URL is pinned to immutable `v2.0.4`; previous bookmarklets will not update automatically.
+The bookmarklet refuses a duplicate start of the same version, replaces an instance left by
+a different version, and keeps settings and tracked deadlines in the browser profile.
 
 ## Integrity
 
@@ -49,10 +49,10 @@ Verify the download before trusting it:
 
 ```bash
 sha256sum smart-assignment.bundle.js
-# e82f38fa080900ca0e6cd2cd35699ec6817dbfe60b2716e41e625aea7e5eebd2
+# c58d8ee53be8ff72a87eaddc7c059f5e622636c9f7e7b5aa18a7353ee9137f7d
 ```
 
-The URL is pinned to the immutable release tag `v2.0.4`, so a later release cannot change
+The URL is pinned to the immutable release tag `v2.0.5`, so a later release cannot change
 what your bookmarklet loads.
 
 ## Safety
