@@ -30,18 +30,26 @@ no stored credential and no external service.
 | `smart-assignment.user.js` | Optional userscript for the same release (not required) |
 | `build-meta.json` | Version, release tag, source commit, bundle URL, size, build time |
 
-## Install
+## Install the corrected bookmarklet in Firefox, Chrome or Edge
 
-1. Open your ServiceNow instance and sign in.
-2. Copy the contents of `bookmarklet.txt`.
-3. Create a browser bookmark whose URL is that `javascript:` code, or paste it into the
-   address bar once (some browsers strip `javascript:` when pasting — type it manually
-   if needed).
-4. Run it on the instance. The panel opens in the corner; configure the queue group,
-   roster, delay and strategy there.
+**Important: replace your old 2.0.2 bookmark.** Version 2.0.2 has a verified
+JavaScript global-name collision and cannot be fixed by merely refreshing ServiceNow.
 
-The bookmarklet refuses a duplicate start of the same version, replaces an instance left by
-a different version, and keeps settings and tracked deadlines in the browser profile.
+1. Open [bookmarklet.txt](./bookmarklet.txt), click **Raw**, and copy the entire **single line**,
+   starting with `javascript:`. [Open the raw bookmarklet directly](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt).
+2. In **Firefox**, right-click your existing SmartAssignment bookmark → **Edit Bookmark**.
+   Paste the copied line into **Location** (not Name).
+   In **Chrome/Edge**, use **Edit bookmark → URL** instead.
+3. On your signed-in ServiceNow page, reload the tab once to clear the old runtime.
+4. Click the updated bookmark. The new one must contain `@v2.0.3/` and `V="2.0.3"`.
+5. If a diagnostic appears, inspect **F12 → Console / Network** and check whether the corporate browser
+   policy blocked the CDN script.
+
+Do **not** paste the bookmarklet into GitHub, the ServiceNow search box or the browser address bar:
+browsers may remove the `javascript:` prefix when pasting in the address bar.
+
+The release build is pinned to `v2.0.3`; the fixed distribution exposes
+`window.SmartAssignment.APP_VERSION === "2.0.3"` instead of overwriting that API.
 
 ## Integrity
 
