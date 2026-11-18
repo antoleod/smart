@@ -1,0 +1,45 @@
+name: Import verified SmartAssignment v2.0.1 build
+on:
+  push:
+    paths:
+      - ".github/workflows/import-smart-release-2.0.1.yml"
+permissions:
+  contents: write
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Retrieve verified build-only artifact
+        env:
+          RELEASE_ARTIFACT_URL: "https://sdmntprnortheu.oaiusercontent.com/files/00000000-0bd4-81f4-acf1-1e53cbcf5e87/raw?se=2026-11-18T11%3A16%3A51Z&sp=r&sv=2026-06-06&sr=b&scid=d0fd1fea-2821-5bd5-a7c2-77dfe413a48f&skoid=8981e47a-681f-4a6a-b86c-73d6347614b7&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-11-18T04%3A15%3A46Z&ske=2026-11-19T04%3A15%3A46Z&sks=b&skv=2026-06-06&sig=bWI4Nx/piSd/8qbd8xnzF8RXrXLva7WYCINaw4BPro8%3D"
+        run: |
+          curl --fail --silent --show-error --location --retry 2 "$RELEASE_ARTIFACT_URL" -o /tmp/smart-2.0.1.zip
+          echo "80eab0001cbeab5a4556e9ffd392f331f8035a52e5675d9b57b373e40d720b48  /tmp/smart-2.0.1.zip" | sha256sum -c -
+          mkdir -p /tmp/smart-release
+          unzip -q /tmp/smart-2.0.1.zip -d /tmp/smart-release
+          test "$(find /tmp/smart-release -maxdepth 1 -type f | wc -l)" -eq 5
+          test "$(node -p "require('/tmp/smart-release/build-meta.json').version")" = "2.0.1"
+          test "$(node -p "require('/tmp/smart-release/build-meta.json').releaseTag")" = "v2.0.1"
+          test "$(node -p "require('/tmp/smart-release/build-meta.json').sourceCommit")" = "3611a5a700cedcf733b8cdaea31739b22d796058"
+      - name: Publish only built runtime files
+        run: |
+          for file in smart-assignment.bundle.js bookmarklet.txt smart-assignment.user.js build-meta.json README.md; do
+            test -s "/tmp/smart-release/$file"
+            cp "/tmp/smart-release/$file" "./$file"
+          done
+          git config user.name "SmartAssignment Build Publisher"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- smart-assignment.bundle.js bookmarklet.txt smart-assignment.user.js build-meta.json README.md
+          if git diff --cached --quiet; then
+            echo "No change in compiled artifacts"
+            exit 0
+          fi
+          git commit -m "release: SmartAssignment 2.0.1 verified build only"
+          git push origin HEAD:main
+          if ! git ls-remote --exit-code --tags origin refs/tags/v2.0.1 >/dev/null; then
+            git tag -a v2.0.1 -m "SmartAssignment 2.0.1 validated build"
+            git push origin refs/tags/v2.0.1
+          fi
