@@ -30,18 +30,18 @@ no stored credential and no external service.
 | `smart-assignment.user.js` | Optional userscript for the same release (not required) |
 | `build-meta.json` | Version, release tag, source commit, bundle URL, size, build time |
 
-## Install
+## Install SmartAssignment 2.0.4
 
-1. Open your ServiceNow instance and sign in.
-2. Copy the contents of `bookmarklet.txt`.
-3. Create a browser bookmark whose URL is that `javascript:` code, or paste it into the
-   address bar once (some browsers strip `javascript:` when pasting — type it manually
-   if needed).
-4. Run it on the instance. The panel opens in the corner; configure the queue group,
-   roster, delay and strategy there.
+1. Open [bookmarklet.txt](./bookmarklet.txt), click **Raw**, and copy the entire single line. [Direct raw bookmarklet](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt)
+2. In Firefox: right-click the SmartAssignment bookmark → **Edit Bookmark**, then replace its **Location** with that line. In Chrome/Edge: edit the bookmark **URL**.
+3. Reload your signed-in ServiceNow tab, then click the bookmark. The code must contain `@v2.0.4/`.
+4. In **Roster**, search for the exact ServiceNow username. The 2.0.4 parser recognizes exact username cells even when all 19 table cells lack `data-field`.
 
-The bookmarklet refuses a duplicate start of the same version, replaces an instance left by
-a different version, and keeps settings and tracked deadlines in the browser profile.
+**Important:** This release fixes username extraction from classic list rows. Its Active-status check remains fail-closed: if ServiceNow does not expose a verifiable Active field, the lookup will report that limitation rather than silently add a potentially inactive user.
+
+If lookup still fails, open F12 → Console and capture the SmartAssignment error text. The app does not require copying private source code or accessing GitHub from ServiceNow.
+
+The versioned CDN URL is pinned to immutable `v2.0.4`; previous bookmarklets will not update automatically.
 
 ## Integrity
 
