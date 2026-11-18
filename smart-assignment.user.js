@@ -11,11 +11,11 @@
 // ==/UserScript==
 // OPTIONAL loader. SmartAssignment is fully usable through the bookmarklet.
 // This file only automates injection on ServiceNow page load, and must be
-// installed in an authorised userscript manager. Replace https://cdn.jsdelivr.net/gh/antoleod/smart@main/smart-assignment.bundle.js with
+// installed in an authorised userscript manager. Replace https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.1/smart-assignment.bundle.js with
 // your approved distribution URL, or use the generated copy in dist/.
 (function () {
   "use strict";
-  var BUNDLE = "https://cdn.jsdelivr.net/gh/antoleod/smart@main/smart-assignment.bundle.js";
+  var BUNDLE = "https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.1/smart-assignment.bundle.js";
   var VERSION = "2.0.0";
   var running = window.__SMART_ASSIGNMENT_2__;
   // Same version already running: nothing to do. A different version means this

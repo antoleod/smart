@@ -1,8 +1,8 @@
 {
-  "version": "2.0.0",
-  "releaseTag": null,
-  "sourceCommit": "b6914b8fa1595e059e1f56b98e7bb57e199b87e6",
-  "bundleUrl": "https://cdn.jsdelivr.net/gh/antoleod/smart@main/smart-assignment.bundle.js",
-  "bytes": 97251,
-  "builtAt": "2026-11-17T18:05:09.730Z"
+  "version": "2.0.1",
+  "releaseTag": "v2.0.1",
+  "sourceCommit": "3611a5a700cedcf733b8cdaea31739b22d796058",
+  "bundleUrl": "https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.1/smart-assignment.bundle.js",
+  "bytes": 102459,
+  "builtAt": "2026-11-18T11:09:39.186Z"
 }
