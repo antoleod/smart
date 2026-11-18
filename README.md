@@ -10,6 +10,16 @@ except a browser tab on your ServiceNow instance.
 - **Built:** 2026-11-18T12:29:19.170Z
 - **License:** MIT
 
+## Install or update (v2.0.5)
+
+1. Open [bookmarklet.txt](./bookmarklet.txt) and click **Raw** to copy the complete single-line `javascript:` bookmarklet. [Direct raw file](https://raw.githubusercontent.com/antoleod/smart/main/bookmarklet.txt).
+2. Replace the **Location/URL** of your existing SmartAssignment bookmark with that entire line, then reload the signed-in ServiceNow tab.
+3. Click the bookmark and verify **SmartAssignment 2.0.5** appears.
+4. Open **Roster**, search for a technician and select **Add verified technician**. The technician is now saved immediately to local browser profile storage, with no second Save roster click required.
+5. Use **Save roster** after editing manually entered technician rows. If browser storage is unavailable, a warning explains that changes are temporary.
+
+**Scope:** Roster edits are stored in the browser profile, not written to ServiceNow's user directory. Dispatch live writes are separate and remain disabled by default. Browser privacy settings or a different profile can prevent previously saved roster entries from appearing.
+
 ## What it does
 
 SmartAssignment monitors an assignment-group queue, waits a per-installation staggered delay
