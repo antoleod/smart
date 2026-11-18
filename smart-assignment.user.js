@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         SmartAssignment 2.0
 // @namespace    https://github.com/antoleod/SmartAssignment
-// @version      2.0.3
+// @version      2.0.4
 // @description  Intelligent ServiceNow ticket dispatch (queue monitoring, staggered delay, verified assignment).
 // @match        https://*.service-now.com/*
 // @match        https://*.servicenow.com/*
@@ -11,12 +11,12 @@
 // ==/UserScript==
 // OPTIONAL loader. SmartAssignment is fully usable through the bookmarklet.
 // This file only automates injection on ServiceNow page load, and must be
-// installed in an authorised userscript manager. Replace https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.3/smart-assignment.bundle.js with
+// installed in an authorised userscript manager. Replace https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.4/smart-assignment.bundle.js with
 // your approved distribution URL, or use the generated copy in dist/.
 (function () {
   "use strict";
-  var BUNDLE = "https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.3/smart-assignment.bundle.js";
-  var VERSION = "2.0.3";
+  var BUNDLE = "https://cdn.jsdelivr.net/gh/antoleod/smart@v2.0.4/smart-assignment.bundle.js";
+  var VERSION = "2.0.4";
   var running = window.__SMART_ASSIGNMENT_2__;
   // Same version already running: nothing to do. A different version means this
   // page still executes stale code, so the old bundle is replaced below.
